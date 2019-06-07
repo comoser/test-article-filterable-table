@@ -9,7 +9,7 @@ const PickerWrapper = styled.div`
   width: 100px;
 `;
 
-const OPTIONS = [
+export const OPTIONS = [
     {
         value: 10,
         label: '10',
@@ -33,6 +33,7 @@ export class NumberOfResultsPicker extends Component {
         return (
             <PickerWrapper>
                 <Select
+                    classNamePrefix="nor"
                     value={OPTIONS.find(option => option.value === resultsPerPage)}
                     options={this.getPickerOptions()}
                     onChange={onResultsPerPageChange}
