@@ -29,7 +29,7 @@ export class ListItem extends Component {
         const { title, completed } = data;
 
         return (
-            <ListItemWrapper>
+            <ListItemWrapper className="list-item">
                 <Title>{title}</Title>
                 <Status>{completed ? 'COMPLETED' : 'NOT COMPLETED'}</Status>
             </ListItemWrapper>

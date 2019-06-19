@@ -50,7 +50,7 @@ export class Pagination extends Component {
                 <Button
                     key={i}
                     href="#"
-                    className={currentPage === i ? 'active' : ''}
+                    className={`page-btn ${currentPage === i ? 'active' : ''}`}
                     onClick={() => onCurrentPageChange(i)}
                 >
                     {i}
