@@ -12,8 +12,8 @@ describe('Filters component validation', () => {
 
     test('it renders correctly', () => {
         expect(component.isEmptyRender()).toBe(false);
-        expect(component.find('#complete').getElements().filter(n => n.type !== 'input').length).toBe(1);
-        expect(component.find('#incomplete').getElements().filter(n => n.type !== 'input').length).toBe(1);
+        expect(component.find('input#complete').length).toBe(1);
+        expect(component.find('input#incomplete').length).toBe(1);
     });
 
     test('it has both filters on by default', () => {
