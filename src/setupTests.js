@@ -8,3 +8,7 @@ export const callPropFunctionOnComponent = (component, propName, paramsArray) =>
         component.prop(propName)(...paramsArray);
     }
 };
+
+export const setInternalStateOnComponent = (component, newState) => {
+    component.setState(newState, () => component.update());
+};

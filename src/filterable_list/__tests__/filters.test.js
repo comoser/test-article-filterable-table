@@ -1,13 +1,20 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { Filters } from '../filters';
+import { CHECKBOXES, Filters } from '../filters';
+import { callPropFunctionOnComponent } from '../../setupTests';
 
 describe('Filters component validation', () => {
     let component = null;
 
     beforeEach(() => {
-        component = mount(<Filters onCompleteFilterChange={() => {}} />);
+        component = mount(
+            <Filters
+                completeCheckboxValue={true}
+                incompleteCheckboxValue={true}
+                onCompleteFilterChange={() => {}}
+            />
+        );
     });
 
     test('it renders correctly', () => {
@@ -17,20 +24,20 @@ describe('Filters component validation', () => {
     });
 
     test('it has both filters on by default', () => {
-        expect(component.state()).toEqual({
-            complete: true,
-            incomplete: true,
-        });
         expect(component.find('#complete').at(0).prop('checked')).toBe(true);
         expect(component.find('#incomplete').at(0).prop('checked')).toBe(true);
     });
 
-    test('it changes the state correctly when checking a filter', () => {
-        component.setState({ complete: false }, () => component.update());
-        expect(component.find('#complete').at(0).prop('checked')).toBe(false);
-        expect(component.state()).toEqual({
-            complete: false,
-            incomplete: true,
+    test('it changes the values correctly when checking a filter', () => {
+        expect(component.find('#complete').at(0).prop('checked')).toBe(true);
+        component.setProps({
+            onCompleteFilterChange: (checkbox, isChecked) => {
+                component.setProps({
+                    [checkbox]: isChecked,
+                });
+            }
         });
+        callPropFunctionOnComponent(component, 'onCompleteFilterChange', [CHECKBOXES.COMPLETED, false]);
+        expect(component.find('#complete').at(0).prop('checked')).toBe(false);
     });
 });
