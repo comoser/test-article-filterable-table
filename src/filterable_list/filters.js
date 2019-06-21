@@ -26,34 +26,20 @@ const CheckboxWrapper = styled.div`
   }
 `;
 
-const CHECKBOXES = {
-    COMPLETED: 'complete',
-    NOT_COMPLETED: 'incomplete',
-};
-
-const INITIAL_STATE = {
-    complete: true,
-    incomplete: true,
+export const CHECKBOXES = {
+    COMPLETED: 'completeCheckboxValue',
+    NOT_COMPLETED: 'incompleteCheckboxValue',
 };
 
 export class Filters extends Component {
-    state = INITIAL_STATE;
-
     onCheckboxChange = (checkbox, isChecked) => {
         const { onCompleteFilterChange } = this.props;
 
-        this.setState({
-            [checkbox]: isChecked,
-        }, () => {
-            const { complete, incomplete } = this.state;
-            if ((complete && incomplete) || (!complete && !incomplete)) onCompleteFilterChange(null);
-            else if (complete && !incomplete) onCompleteFilterChange(true);
-            else if (!complete && incomplete) onCompleteFilterChange(false);
-        });
+        onCompleteFilterChange(checkbox, isChecked);
     };
 
     render() {
-        const { complete, incomplete } = this.state;
+        const { completeCheckboxValue, incompleteCheckboxValue } = this.props;
 
         return (
             <FiltersWrapper className="filters">
@@ -62,7 +48,7 @@ export class Filters extends Component {
                         id="complete"
                         size={3}
                         color="#7D43FF"
-                        checked={complete}
+                        checked={completeCheckboxValue}
                         onChange={isChecked => this.onCheckboxChange(CHECKBOXES.COMPLETED, isChecked)}
                     />
                     <label htmlFor="complete">Completed</label>
@@ -72,7 +58,7 @@ export class Filters extends Component {
                         id="incomplete"
                         size={3}
                         color="#7D43FF"
-                        checked={incomplete}
+                        checked={incompleteCheckboxValue}
                         onChange={isChecked => this.onCheckboxChange(CHECKBOXES.NOT_COMPLETED, isChecked)}
                     />
                     <label htmlFor="incomplete">Not completed</label>
@@ -83,9 +69,13 @@ export class Filters extends Component {
 }
 
 Filters.propTypes = {
+    completeCheckboxValue: PropTypes.bool,
+    incompleteCheckboxValue: PropTypes.bool,
     onCompleteFilterChange: PropTypes.func,
 };
 
 Filters.defaultProps = {
+    completeCheckboxValue: true,
+    incompleteCheckboxValue: true,
     onCompleteFilterChange: () => {},
 };

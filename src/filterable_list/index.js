@@ -10,6 +10,8 @@ const INITIAL_STATE = {
     currentPage: DEFAULT_PAGE,
     totalResults: 0,
     completeFilter: null,
+    completeCheckboxValue: true,
+    incompleteCheckboxValue: true,
     resultsPerPage: DEFAULT_NUMBER_OF_RESULTS,
 };
 
@@ -41,13 +43,22 @@ export class FilterableList extends Component {
         });
     };
 
-    onCompleteFilterChange = (completeFilter) => {
-        const { currentPage, resultsPerPage } = this.state;
+    onCompleteFilterChange = (checkbox, isChecked) => {
+        const { resultsPerPage } = this.state;
+        let completeFilterValue;
+        const checkboxesCurrentState = this.getCheckboxesCurrentState(checkbox, isChecked);
+        const { completeCheckboxValue: complete, incompleteCheckboxValue: incomplete } = checkboxesCurrentState;
+
+        if ((complete && incomplete) || (!complete && !incomplete)) completeFilterValue = null;
+        else if (complete && !incomplete) completeFilterValue = true;
+        else if (!complete && incomplete) completeFilterValue = false;
+
         this.setState({
+            [checkbox]: isChecked,
             currentPage: DEFAULT_PAGE,
-            completeFilter,
+            completeFilter: completeFilterValue,
         }, () => {
-            this.requestTodosFromAPI(DEFAULT_PAGE, resultsPerPage, completeFilter);
+            this.requestTodosFromAPI(DEFAULT_PAGE, resultsPerPage, completeFilterValue);
         });
     };
 
@@ -62,15 +73,33 @@ export class FilterableList extends Component {
         });
     };
 
+    getCheckboxesCurrentState = (checkbox, isChecked) => {
+        const { completeCheckboxValue, incompleteCheckboxValue } = this.state;
+
+        let checkboxesValues = {
+            completeCheckboxValue,
+            incompleteCheckboxValue,
+        };
+        checkboxesValues[checkbox] = isChecked;
+
+        return checkboxesValues;
+    };
+
     render() {
         const {
             todos, totalResults,
             resultsPerPage, currentPage,
+            completeCheckboxValue,
+            incompleteCheckboxValue,
         } = this.state;
 
         return (
             <Wrapper className="wrapper">
-                <Filters onCompleteFilterChange={this.onCompleteFilterChange} />
+                <Filters
+                    completeCheckboxValue={completeCheckboxValue}
+                    incompleteCheckboxValue={incompleteCheckboxValue}
+                    onCompleteFilterChange={this.onCompleteFilterChange}
+                />
                 <List
                     data={todos}
                     currentPage={currentPage}
