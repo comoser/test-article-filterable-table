@@ -169,10 +169,10 @@ describe('FilterableList component validation', () => {
 
     beforeEach(() => {
         component = mount(<FilterableList />);
-        component.setState({
+        setInternalStateOnComponent(component, {
             todos: PAGES[1],
             totalResults: 30,
-        }, () => component.update());
+        });
     });
 
     test('it renders correctly', () => {
