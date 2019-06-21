@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { Filters } from './filters';
+import { Filters } from '../filters';
 
 describe('Filters component validation', () => {
     let component = null;

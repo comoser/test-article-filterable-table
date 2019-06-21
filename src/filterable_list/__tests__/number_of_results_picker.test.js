@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { NumberOfResultsPicker, OPTIONS } from './number_of_results_picker';
-import { DEFAULT_NUMBER_OF_RESULTS } from '../common/api';
-import { callPropFunctionOnComponent } from '../setupTests';
+import { NumberOfResultsPicker, OPTIONS } from '../number_of_results_picker';
+import { DEFAULT_NUMBER_OF_RESULTS } from '../../common/api';
+import { callPropFunctionOnComponent } from '../../setupTests';
 
 describe('NumberOfResultsPicker component validation', () => {
     let component = null;

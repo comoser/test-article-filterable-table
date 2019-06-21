@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { List } from './list';
-import { DEFAULT_NUMBER_OF_RESULTS } from '../common/api';
-import { callPropFunctionOnComponent } from '../setupTests';
+import { List } from '../list';
+import { DEFAULT_NUMBER_OF_RESULTS } from '../../common/api';
+import { callPropFunctionOnComponent } from '../../setupTests';
 
 const totalResults = 20;
 const resultsPerPage = DEFAULT_NUMBER_OF_RESULTS;

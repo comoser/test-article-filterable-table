@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { Pagination } from './pagination';
-import { DEFAULT_NUMBER_OF_RESULTS, DEFAULT_PAGE } from '../common/api';
-import { callPropFunctionOnComponent } from '../setupTests';
+import { Pagination } from '../pagination';
+import { DEFAULT_NUMBER_OF_RESULTS, DEFAULT_PAGE } from '../../common/api';
+import { callPropFunctionOnComponent } from '../../setupTests';
 
 describe('Pagination component validation', () => {
     let component = null;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import { ListItem } from './list_item';
+import { ListItem } from '../list_item';
 
 const mockedCorrectData = {
     id: 1,
